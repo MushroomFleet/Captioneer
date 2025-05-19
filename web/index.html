@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captioneer</title>
+    
+    <!-- CDN Libraries -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- JSZip for backups -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- FileSaver.js for saving files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#3B82F6',
+                        'secondary': '#10B981',
+                        'danger': '#EF4444',
+                        'warning': '#F59E0B',
+                        'dark': {
+                            100: '#1F2937',
+                            200: '#111827',
+                            300: '#030712'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        /* Custom scrollbar for dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4B5563;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6B7280;
+        }
+        
+        /* Ensure image fits within container */
+        .image-container img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-300 text-gray-100 min-h-screen" x-data="captioneerApp" x-cloak @keydown.left="navigatePair(-1)" @keydown.right="navigatePair(1)">
+    
+    <!-- Main container -->
+    <div class="container mx-auto px-4 py-6 flex flex-col h-screen">
+        
+        <!-- Header -->
+        <header class="mb-6 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-primary flex items-center">
+                <i class="fa-solid fa-image-text mr-2"></i> Captioneer
+            </h1>
+            
+            <!-- Folder selection -->
+            <div class="flex gap-3">
+                <button @click="openFolderPicker" 
+                    class="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+                    :disabled="isLoading">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>Select Folder</span>
+                </button>
+            </div>
+        </header>
+        
+        <!-- Main content area -->
+        <div class="flex-grow grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            
+            <!-- Left panel: Image preview -->
+            <div class="bg-dark-100 rounded-lg p-4 flex flex-col">
+                <h2 class="text-xl font-semibold mb-3 text-gray-200 flex justify-between items-center">
+                    <span>Image Preview</span>
+                    <span x-text="currentPairInfo" class="text-sm text-gray-400"></span>
+                </h2>
+                
+                <!-- Image container -->
+                <div class="flex-grow bg-dark-200 rounded-lg flex items-center justify-center p-2 image-container" 
+                     x-bind:class="{'animate-pulse': isLoading}">
+                    <template x-if="currentPair && currentPair.imageBlob">
+                        <img :src="currentPair.imageURL" alt="Selected image" class="max-h-full max-w-full rounded"/>
+                    </template>
+                    <template x-if="!currentPair">
+                        <div class="text-gray-500 text-center p-8">
+                            <i class="fa-solid fa-image text-6xl mb-4 opacity-30"></i>
+                            <p>No images loaded. Please select a folder containing PNG images with corresponding TXT files.</p>
+                        </div>
+                    </template>
+                </div>
+                
+                <!-- Image info -->
+                <div class="mt-3 text-sm text-gray-400">
+                    <template x-if="currentPair">
+                        <p>
+                            <span x-text="currentPair.imageName"></span> 
+                            <template x-if="imageInfo.width && imageInfo.height">
+                                <span x-text="`(${imageInfo.width} × ${imageInfo.height})`"></span>
+                            </template>
+                        </p>
+                    </template>
+                </div>
+            </div>
+            
+            <!-- Right panel: Text editor -->
+            <div class="bg-dark-100 rounded-lg p-4 flex flex-col">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-xl font-semibold text-gray-200">Caption Text</h2>
+                    <div>
+                        <button @click="saveCurrentText" 
+                            class="bg-secondary hover:bg-green-600 text-white px-4 py-1 rounded-lg flex items-center gap-2 transition-colors"
+                            :disabled="!isEdited || isLoading" 
+                            :class="{'opacity-50': !isEdited || isLoading}">
+                            <i class="fa-solid fa-save"></i>
+                            <span>Save Changes</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Text editor -->
+                <div class="flex-grow">
+                    <textarea 
+                        x-model="currentText" 
+                        @input="isEdited = true"
+                        class="w-full h-full bg-dark-200 text-gray-100 p-4 rounded-lg border-2 border-gray-700 focus:border-primary outline-none resize-none"
+                        placeholder="No text loaded. Select a folder to get started."
+                        :disabled="!currentPair || isLoading"></textarea>
+                </div>
+                
+                <!-- Text stats -->
+                <div class="mt-3 text-sm text-gray-400 flex justify-between">
+                    <template x-if="currentPair">
+                        <p x-text="currentPair.textName"></p>
+                    </template>
+                    <template x-if="currentText">
+                        <p>
+                            <span x-text="wordCount"></span> words, 
+                            <span x-text="characterCount"></span> characters
+                        </p>
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer with navigation -->
+        <footer class="flex justify-between items-center">
+            <div class="flex gap-3">
+                <button @click="navigatePair(-1)" 
+                    class="bg-dark-100 hover:bg-dark-200 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+                    :disabled="!hasPairs || isLoading" 
+                    :class="{'opacity-50': !hasPairs || isLoading}">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Previous</span>
+                </button>
+                
+                <button @click="navigatePair(1)" 
+                    class="bg-dark-100 hover:bg-dark-200 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+                    :disabled="!hasPairs || isLoading" 
+                    :class="{'opacity-50': !hasPairs || isLoading}">
+                    <span>Next</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <!-- Status message -->
+            <div class="text-gray-400 text-sm" x-show="statusMessage" x-text="statusMessage"></div>
+        </footer>
+        
+        <!-- Notification area -->
+        <div class="fixed bottom-4 right-4 flex flex-col gap-2" id="notification-area">
+            <template x-for="(notification, index) in notifications" :key="index">
+                <div class="bg-dark-100 border-l-4 p-4 rounded-r-lg shadow-lg max-w-lg transition-all duration-300"
+                     :class="{
+                        'border-primary': notification.type === 'info',
+                        'border-secondary': notification.type === 'success',
+                        'border-danger': notification.type === 'error',
+                        'border-warning': notification.type === 'warning'
+                     }"
+                     x-init="setTimeout(() => { removeNotification(index) }, notification.duration || 5000)"
+                     x-transition:enter="transform ease-out duration-300 transition"
+                     x-transition:enter-start="translate-y-2 opacity-0"
+                     x-transition:enter-end="translate-y-0 opacity-100"
+                     x-transition:leave="transition ease-in duration-100"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0">
+                    <div class="flex justify-between">
+                        <p class="font-semibold" x-text="notification.title"></p>
+                        <button @click="removeNotification(index)" class="text-gray-400 hover:text-gray-300">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                    </div>
+                    <p class="text-gray-300 text-sm mt-1" x-text="notification.message"></p>
+                </div>
+            </template>
+        </div>
+    </div>
+    
+    <!-- Alpine.js application logic -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('captioneerApp', () => ({
+                // App state
+                currentDirectory: null,
+                pairs: [],
+                currentIndex: 0,
+                currentPair: null,
+                currentText: '',
+                isEdited: false,
+                isLoading: false,
+                statusMessage: '',
+                notifications: [],
+                imageInfo: {
+                    width: null,
+                    height: null
+                },
+                
+                // Computed properties
+                get hasPairs() {
+                    return this.pairs.length > 0;
+                },
+                
+                get currentPairInfo() {
+                    if (!this.hasPairs) return '';
+                    return `${this.currentIndex + 1} of ${this.pairs.length}`;
+                },
+                
+                get wordCount() {
+                    return this.currentText.trim() ? this.currentText.trim().split(/\s+/).length : 0;
+                },
+                
+                get characterCount() {
+                    return this.currentText.length;
+                },
+                
+                // Initialize
+                async init() {
+                    // Setup application
+                    this.addNotification({
+                        title: 'Welcome to Captioneer',
+                        message: 'Select a folder with image-text pairs to get started.',
+                        type: 'info'
+                    });
+                    
+                    // Setup keyboard navigation
+                    window.addEventListener('keydown', (e) => {
+                        // Only capture left/right if not in textarea
+                        if (document.activeElement.tagName !== 'TEXTAREA') {
+                            if (e.key === 'ArrowLeft') this.navigatePair(-1);
+                            if (e.key === 'ArrowRight') this.navigatePair(1);
+                        }
+                    });
+                },
+                
+                // Helper functions
+                async requestBackupDirectory() {
+                    try {
+                        // Try to access or create a directory for backups
+                        const dirHandle = await window.showDirectoryPicker({
+                            id: 'backup-dir',
+                            startIn: 'documents',
+                            mode: 'readwrite',
+                        });
+                        
+                        return dirHandle;
+                    } catch (error) {
+                        console.error('Failed to access backup directory:', error);
+                        return null;
+                    }
+                },
+                
+                // Open folder picker
+                async openFolderPicker() {
+                    try {
+                        this.isLoading = true;
+                        this.statusMessage = 'Selecting folder...';
+                        
+                        // Request user to select a folder
+                        const dirHandle = await window.showDirectoryPicker();
+                        this.currentDirectory = dirHandle;
+                        
+                        // Load image and text pairs
+                        await this.loadImageTextPairs(dirHandle);
+                        
+                        // Set status message before backup
+                        this.statusMessage = `Loaded ${this.pairs.length} image-text pairs`;
+                        this.isLoading = false; // End loading state before backup
+                        
+                        // Create backup after loading (don't block UI)
+                        if (this.pairs.length > 0) {
+                            setTimeout(() => {
+                                this.createBackup();
+                            }, 100);
+                        }
+                    } catch (error) {
+                        console.error('Folder selection error:', error);
+                        this.addNotification({
+                            title: 'Error',
+                            message: error.message || 'Failed to load folder',
+                            type: 'error'
+                        });
+                        this.statusMessage = '';
+                        this.isLoading = false;
+                    }
+                },
+                
+                // Load image-text pairs from the selected directory
+                async loadImageTextPairs(dirHandle) {
+                    this.pairs = [];
+                    this.currentIndex = 0;
+                    this.currentPair = null;
+                    this.currentText = '';
+                    this.isEdited = false;
+                    this.statusMessage = 'Scanning folder...';
+                    
+                    try {
+                        // Map to store pairs by base name
+                        const pairsMap = new Map();
+                        
+                        // Process all files in the directory
+                        for await (const entry of dirHandle.values()) {
+                            if (entry.kind === 'file') {
+                                const name = entry.name;
+                                const baseName = name.substring(0, name.lastIndexOf('.'));
+                                const extension = name.substring(name.lastIndexOf('.')).toLowerCase();
+                                
+                                // Process only PNG and TXT files
+                                if (extension === '.png' || extension === '.txt') {
+                                    // Get or create pair object in the map
+                                    if (!pairsMap.has(baseName)) {
+                                        pairsMap.set(baseName, {
+                                            baseName,
+                                            imageFile: null,
+                                            imageHandle: null,
+                                            textFile: null,
+                                            textHandle: null,
+                                            imageName: '',
+                                            textName: ''
+                                        });
+                                    }
+                                    
+                                    const pair = pairsMap.get(baseName);
+                                    
+                                    // Assign file to appropriate property
+                                    if (extension === '.png') {
+                                        pair.imageFile = entry;
+                                        pair.imageName = name;
+                                        pair.imageHandle = await entry.getFile();
+                                    } else if (extension === '.txt') {
+                                        pair.textFile = entry;
+                                        pair.textName = name;
+                                        pair.textHandle = await entry.getFile();
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Filter for valid pairs (has both image and text)
+                        for (const pair of pairsMap.values()) {
+                            if (pair.imageFile && pair.textFile) {
+                                this.pairs.push(pair);
+                            }
+                        }
+                        
+                        // Sort pairs by base name
+                        this.pairs.sort((a, b) => a.baseName.localeCompare(b.baseName));
+                        
+                        // Load the first pair if available
+                        if (this.pairs.length > 0) {
+                            await this.loadPair(0);
+                            this.addNotification({
+                                title: 'Success',
+                                message: `Loaded ${this.pairs.length} image-text pairs`,
+                                type: 'success'
+                            });
+                        } else {
+                            this.addNotification({
+                                title: 'No Pairs Found',
+                                message: 'No matching PNG and TXT files found in the selected folder.',
+                                type: 'warning'
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Error loading pairs:', error);
+                        this.addNotification({
+                            title: 'Error',
+                            message: 'Failed to load image-text pairs: ' + error.message,
+                            type: 'error'
+                        });
+                    }
+                },
+                
+                // Load a specific pair by index
+                async loadPair(index) {
+                    if (index < 0 || index >= this.pairs.length) return;
+                    
+                    // Check for unsaved changes
+                    if (this.isEdited) {
+                        const confirmed = await this.confirmAction(
+                            'Unsaved Changes',
+                            'You have unsaved changes. Do you want to save them before continuing?'
+                        );
+                        
+                        if (confirmed) {
+                            await this.saveCurrentText();
+                        }
+                    }
+                    
+                    this.isLoading = true;
+                    this.statusMessage = 'Loading pair...';
+                    
+                    try {
+                        const pair = this.pairs[index];
+                        
+                        // Load image
+                        const imageFile = await pair.imageHandle;
+                        pair.imageBlob = imageFile;
+                        pair.imageURL = URL.createObjectURL(imageFile);
+                        
+                        // Get image dimensions when loaded
+                        const img = new Image();
+                        img.onload = () => {
+                            this.imageInfo.width = img.naturalWidth;
+                            this.imageInfo.height = img.naturalHeight;
+                        };
+                        img.src = pair.imageURL;
+                        
+                        // Load text
+                        const textFile = await pair.textHandle;
+                        this.currentText = await textFile.text();
+                        
+                        // Update state
+                        this.currentPair = pair;
+                        this.currentIndex = index;
+                        this.isEdited = false;
+                        
+                        this.statusMessage = `Loaded ${pair.baseName} (${index + 1} of ${this.pairs.length})`;
+                    } catch (error) {
+                        console.error('Error loading pair:', error);
+                        this.addNotification({
+                            title: 'Error',
+                            message: 'Failed to load pair: ' + error.message,
+                            type: 'error'
+                        });
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+                
+                // Navigate to previous/next pair
+                async navigatePair(direction) {
+                    if (!this.hasPairs || this.isLoading) return;
+                    
+                    const newIndex = this.currentIndex + direction;
+                    if (newIndex >= 0 && newIndex < this.pairs.length) {
+                        await this.loadPair(newIndex);
+                    }
+                },
+                
+                // Save the current text
+                async saveCurrentText() {
+                    if (!this.currentPair || !this.isEdited || this.isLoading) return;
+                    
+                    this.isLoading = true;
+                    this.statusMessage = 'Saving text...';
+                    
+                    try {
+                        const writable = await this.currentPair.textFile.createWritable();
+                        await writable.write(this.currentText);
+                        await writable.close();
+                        
+                        // Update the text handle
+                        this.currentPair.textHandle = await this.currentPair.textFile.getFile();
+                        
+                        this.isEdited = false;
+                        this.addNotification({
+                            title: 'Saved',
+                            message: `Successfully saved changes to ${this.currentPair.textName}`,
+                            type: 'success'
+                        });
+                        
+                        this.statusMessage = 'Changes saved';
+                    } catch (error) {
+                        console.error('Error saving text:', error);
+                        this.addNotification({
+                            title: 'Save Error',
+                            message: 'Failed to save text: ' + error.message,
+                            type: 'error'
+                        });
+                        this.statusMessage = 'Save failed';
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+                
+                // Create backup of all text files
+                async createBackup() {
+                    if (!this.pairs.length || !this.currentDirectory) return;
+                    
+                    this.statusMessage = 'Creating backup...';
+                    
+                    try {
+                        // Create a new ZIP file
+                        const zip = new JSZip();
+                        
+                        // Generate timestamp for backup name
+                        const timestamp = new Date().toISOString()
+                            .replace(/[:.]/g, '-')
+                            .replace('T', '_')
+                            .substring(0, 19);
+                        
+                        // Get directory name for the ZIP filename
+                        const dirName = this.currentDirectory.name;
+                        const backupName = `${dirName}_${timestamp}.zip`;
+                        
+                        // Add all text files to the ZIP
+                        for (const pair of this.pairs) {
+                            if (pair.textFile) {
+                                const textFile = await pair.textHandle;
+                                const textContent = await textFile.text();
+                                zip.file(pair.textName, textContent);
+                            }
+                        }
+                        
+                        // Generate the ZIP file
+                        const content = await zip.generateAsync({ type: "blob" });
+                        
+                        // Ask user where to save the backup (only first time)
+                        try {
+                            // First try to get a directory from user
+                            const backupDir = await this.requestBackupDirectory();
+                            
+                            if (backupDir) {
+                                // Save to the selected directory
+                                const fileHandle = await backupDir.getFileHandle(backupName, { create: true });
+                                const writable = await fileHandle.createWritable();
+                                await writable.write(content);
+                                await writable.close();
+                                
+                                this.addNotification({
+                                    title: 'Backup Created',
+                                    message: `Saved backup to selected directory: ${backupName}`,
+                                    type: 'success'
+                                });
+                            } else {
+                                // Download the file if no directory selected
+                                saveAs(content, backupName);
+                                this.addNotification({
+                                    title: 'Backup Created',
+                                    message: `${backupName} downloaded to your downloads folder`,
+                                    type: 'success'
+                                });
+                            }
+                        } catch (saveError) {
+                            // If saving to directory fails, download the file
+                            console.error('Error saving backup:', saveError);
+                            saveAs(content, backupName);
+                            this.addNotification({
+                                title: 'Backup Created',
+                                message: `${backupName} downloaded to your downloads folder`,
+                                type: 'success'
+                            });
+                        }
+                        
+                        this.statusMessage = 'Backup completed';
+                    } catch (error) {
+                        console.error('Backup error:', error);
+                        this.addNotification({
+                            title: 'Backup Error',
+                            message: 'Failed to create backup: ' + error.message,
+                            type: 'error'
+                        });
+                        this.statusMessage = 'Backup failed';
+                    }
+                },
+                
+                // Add a notification
+                addNotification(notification) {
+                    this.notifications.push({
+                        id: Date.now(),
+                        title: notification.title || 'Notification',
+                        message: notification.message || '',
+                        type: notification.type || 'info',
+                        duration: notification.duration || 5000
+                    });
+                },
+                
+                // Remove a notification by index
+                removeNotification(index) {
+                    this.notifications.splice(index, 1);
+                },
+                
+                // Confirm action dialog (simple implementation)
+                async confirmAction(title, message) {
+                    return confirm(`${title}\n\n${message}`);
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
