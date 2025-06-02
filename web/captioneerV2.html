@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://scuffedepoch.com/captioneerV2/ -->
+<html lang="en" class="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captioneer V2</title>
+    
+    <!-- CDN Libraries -->
+    <!-- Tailwind CSS -->
+    <script src="./Captioneer V2_files/saved_resource"></script>
+    <!-- Alpine.js -->
+    <script defer="" src="./Captioneer V2_files/cdn.min.js.download"></script>
+    <!-- Chart.js -->
+    <script src="./Captioneer V2_files/chart.js.download"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./Captioneer V2_files/all.min.css">
+    <!-- JSZip for backups -->
+    <script src="./Captioneer V2_files/jszip.min.js.download"></script>
+    <!-- FileSaver.js for saving files -->
+    <script src="./Captioneer V2_files/FileSaver.min.js.download"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#3B82F6',
+                        'secondary': '#10B981',
+                        'danger': '#EF4444',
+                        'warning': '#F59E0B',
+                        'dark': {
+                            100: '#1F2937',
+                            200: '#111827',
+                            300: '#030712'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        /* Custom scrollbar for dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4B5563;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6B7280;
+        }
+        
+        /* Ensure image fits within container */
+        .image-container img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.fixed{position:fixed}.inset-0{inset:0px}.bottom-4{bottom:1rem}.right-4{right:1rem}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mr-2{margin-right:0.5rem}.mt-3{margin-top:0.75rem}.mt-1{margin-top:0.25rem}.block{display:block}.flex{display:flex}.grid{display:grid}.h-full{height:100%}.h-screen{height:100vh}.max-h-\[90vh\]{max-height:90vh}.min-h-screen{min-height:100vh}.w-full{width:100%}.max-w-3xl{max-width:48rem}.max-w-lg{max-width:32rem}.flex-grow{flex-grow:1}.resize-none{resize:none}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.overflow-auto{overflow:auto}.rounded{border-radius:0.25rem}.rounded-lg{border-radius:0.5rem}.rounded-r-lg{border-top-right-radius:0.5rem;border-bottom-right-radius:0.5rem}.border{border-width:1px}.border-2{border-width:2px}.border-l-4{border-left-width:4px}.border-gray-700{--tw-border-opacity:1;border-color:rgb(55 65 81 / var(--tw-border-opacity, 1))}.border-primary{--tw-border-opacity:1;border-color:rgb(59 130 246 / var(--tw-border-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-dark-100{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-dark-200{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-dark-300{--tw-bg-opacity:1;background-color:rgb(3 7 18 / var(--tw-bg-opacity, 1))}.bg-primary{--tw-bg-opacity:1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.bg-secondary{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-warning{--tw-bg-opacity:1;background-color:rgb(245 158 11 / var(--tw-bg-opacity, 1))}.bg-opacity-50{--tw-bg-opacity:0.5}.p-2{padding:0.5rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.text-center{text-align:center}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-6xl{font-size:3.75rem;line-height:1}.font-bold{font-weight:700}.font-semibold{font-weight:600}.text-gray-100{--tw-text-opacity:1;color:rgb(243 244 246 / var(--tw-text-opacity, 1))}.text-gray-200{--tw-text-opacity:1;color:rgb(229 231 235 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-primary{--tw-text-opacity:1;color:rgb(59 130 246 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.opacity-30{opacity:0.3}.opacity-50{opacity:0.5}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:bg-amber-600:hover{--tw-bg-opacity:1;background-color:rgb(217 119 6 / var(--tw-bg-opacity, 1))}.hover\:bg-blue-600:hover{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.hover\:bg-dark-200:hover{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.hover\:bg-green-600:hover{--tw-bg-opacity:1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:text-gray-300:hover{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.focus\:border-primary:focus{--tw-border-opacity:1;border-color:rgb(59 130 246 / var(--tw-border-opacity, 1))}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}</style></head>
+
+<body class="bg-dark-300 text-gray-100 min-h-screen" x-data="captioneerApp" @keydown.left="navigatePair(-1)" @keydown.right="navigatePair(1)">
+    
+    <!-- Main container -->
+    <div class="container mx-auto px-4 py-6 flex flex-col h-screen">
+        
+        <!-- Header -->
+        <header class="mb-6 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-primary flex items-center">
+                <i class="fa-solid fa-image-text mr-2"></i> Captioneer V2
+            </h1>
+            
+            <!-- Folder selection -->
+            <div class="flex gap-3">
+                <button @click="openFolderPicker" class="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors" :disabled="isLoading">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>Select Folder</span>
+                </button>
+                <button @click="openSearchReplace" class="bg-warning hover:bg-amber-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors" :disabled="!hasPairs || isLoading" disabled="disabled">
+                    <i class="fa-solid fa-search-plus"></i>
+                    <span>Search &amp; Replace</span>
+                </button>
+            </div>
+        </header>
+        
+        <!-- Main content area -->
+        <div class="flex-grow grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            
+            <!-- Left panel: Image preview -->
+            <div class="bg-dark-100 rounded-lg p-4 flex flex-col">
+                <h2 class="text-xl font-semibold mb-3 text-gray-200 flex justify-between items-center">
+                    <span>Media Preview</span>
+                    <span x-text="currentPairInfo" class="text-sm text-gray-400"></span>
+                </h2>
+                
+                <!-- Media container -->
+                <div class="flex-grow bg-dark-200 rounded-lg flex items-center justify-center p-2 media-container" x-bind:class="{&#39;animate-pulse&#39;: isLoading}">
+                    <!-- Image preview -->
+                    <template x-if="currentPair &amp;&amp; currentPair.mediaBlob &amp;&amp; currentPair.mediaType === &#39;image&#39;"></template>
+                    
+                    <!-- Video preview -->
+                    <template x-if="currentPair &amp;&amp; currentPair.mediaBlob &amp;&amp; currentPair.mediaType === &#39;video&#39;"></template>
+                    
+                    <!-- No media state -->
+                    <template x-if="!currentPair"></template><div class="text-gray-500 text-center p-8">
+                            <i class="fa-solid fa-photo-film text-6xl mb-4 opacity-30"></i>
+                            <p>No media loaded. Please select a folder containing media files (PNG, JPG, MP4, WebM) with corresponding TXT files.</p>
+                        </div>
+                </div>
+                
+                <!-- Media info -->
+                <div class="mt-3 text-sm text-gray-400">
+                    <template x-if="currentPair"></template>
+                </div>
+            </div>
+            
+            <!-- Right panel: Text editor -->
+            <div class="bg-dark-100 rounded-lg p-4 flex flex-col">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-xl font-semibold text-gray-200">Caption Text</h2>
+                    <div>
+                        <button @click="saveCurrentText" class="bg-secondary hover:bg-green-600 text-white px-4 py-1 rounded-lg flex items-center gap-2 transition-colors opacity-50" :disabled="!isEdited || isLoading" :class="{&#39;opacity-50&#39;: !isEdited || isLoading}" disabled="disabled">
+                            <i class="fa-solid fa-save"></i>
+                            <span>Save Changes</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Text editor -->
+                <div class="flex-grow">
+                    <textarea x-model="currentText" @input="isEdited = true" class="w-full h-full bg-dark-200 text-gray-100 p-4 rounded-lg border-2 border-gray-700 focus:border-primary outline-none resize-none" placeholder="No text loaded. Select a folder to get started." :disabled="!currentPair || isLoading" disabled="disabled"></textarea>
+                </div>
+                
+                <!-- Text stats -->
+                <div class="mt-3 text-sm text-gray-400 flex justify-between">
+                    <template x-if="currentPair"></template>
+                    <template x-if="currentText"></template>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer with navigation -->
+        <footer class="flex justify-between items-center">
+            <div class="flex gap-3">
+                <button @click="navigatePair(-1)" class="bg-dark-100 hover:bg-dark-200 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors opacity-50" :disabled="!hasPairs || isLoading" :class="{&#39;opacity-50&#39;: !hasPairs || isLoading}" disabled="disabled">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Previous</span>
+                </button>
+                
+                <button @click="navigatePair(1)" class="bg-dark-100 hover:bg-dark-200 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors opacity-50" :disabled="!hasPairs || isLoading" :class="{&#39;opacity-50&#39;: !hasPairs || isLoading}" disabled="disabled">
+                    <span>Next</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <!-- Status message -->
+            <div class="text-gray-400 text-sm" x-show="statusMessage" x-text="statusMessage" style="display: none;"></div>
+        </footer>
+        
+        <!-- Search & Replace Modal -->
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" x-show="searchReplaceOpen" x-transition.opacity="" @click.self="searchReplaceOpen = false" style="display: none;">
+            <div class="bg-dark-100 rounded-lg p-6 max-w-3xl w-full max-h-[90vh] flex flex-col">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold">Search &amp; Replace</h3>
+                    <button @click="searchReplaceOpen = false" class="text-gray-400 hover:text-white">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                
+                <!-- Search inputs -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-300 mb-1">Search for:</label>
+                        <input type="text" x-model="searchQuery" @keyup.enter="performSearch" class="w-full bg-dark-200 border border-gray-700 rounded px-3 py-2 text-white" placeholder="Enter word or &quot;phrase in quotes&quot;">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-1">Replace with:</label>
+                        <input type="text" x-model="replaceText" class="w-full bg-dark-200 border border-gray-700 rounded px-3 py-2 text-white">
+                    </div>
+                </div>
+                
+                <!-- Search options -->
+                <div class="flex flex-wrap gap-4 mb-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" x-model="caseSensitive" class="mr-2">
+                        <span>Case sensitive</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" x-model="matchWholeWord" class="mr-2">
+                        <span>Match whole word</span>
+                    </label>
+                </div>
+                
+                <!-- Action buttons -->
+                <div class="flex gap-2 mb-4">
+                    <button @click="performSearch" class="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                        <i class="fa-solid fa-search"></i>
+                        <span>Search</span>
+                    </button>
+                    <button @click="replaceAll" class="bg-warning hover:bg-amber-600 text-white px-4 py-2 rounded-lg flex items-center gap-2" :disabled="searchResults.length === 0" disabled="disabled">
+                        <i class="fa-solid fa-exchange"></i>
+                        <span>Replace All</span>
+                    </button>
+                </div>
+                
+                <!-- Results area -->
+                <div class="flex-grow overflow-auto">
+                    <template x-if="searchResults.length === 0 &amp;&amp; searchQuery.trim() !== &#39;&#39;"></template>
+                    
+                    <template x-if="searchResults.length &gt; 0"></template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification area -->
+        <div class="fixed bottom-4 right-4 flex flex-col gap-2" id="notification-area">
+            <template x-for="(notification, index) in notifications" :key="index"></template>
+        </div>
+    </div>
+    
+    <!-- Alpine.js application logic -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('captioneerApp', () => ({
+                // App state
+                currentDirectory: null,
+                pairs: [],
+                currentIndex: 0,
+                currentPair: null,
+                currentText: '',
+                isEdited: false,
+                isLoading: false,
+                statusMessage: '',
+                notifications: [],
+                mediaInfo: {
+                    width: null,
+                    height: null,
+                    duration: null
+                },
+                isVideoPlaying: false,
+                isLooping: false,
+                videoCurrentTime: 0,
+                searchReplaceOpen: false,
+                searchQuery: '',
+                replaceText: '',
+                searchResults: [],
+                caseSensitive: false,
+                matchWholeWord: false,
+                currentSearchIndex: -1,
+                
+                // Computed properties
+                get hasPairs() {
+                    return this.pairs.length > 0;
+                },
+                
+                get currentPairInfo() {
+                    if (!this.hasPairs) return '';
+                    return `${this.currentIndex + 1} of ${this.pairs.length}`;
+                },
+                
+                get wordCount() {
+                    return this.currentText.trim() ? this.currentText.trim().split(/\s+/).length : 0;
+                },
+                
+                get characterCount() {
+                    return this.currentText.length;
+                },
+                
+                // Initialize
+                async init() {
+                    // Setup application
+                    this.addNotification({
+                        title: 'Welcome to Captioneer V2',
+                        message: 'Select a folder with media-text pairs (images or videos) to get started.',
+                        type: 'info'
+                    });
+                    
+                    // Setup keyboard navigation
+                    window.addEventListener('keydown', (e) => {
+                        // Only capture left/right if not in textarea
+                        if (document.activeElement.tagName !== 'TEXTAREA') {
+                            if (e.key === 'ArrowLeft') this.navigatePair(-1);
+                            if (e.key === 'ArrowRight') this.navigatePair(1);
+                        }
+                    });
+                },
+                
+                // Helper functions
+                async requestBackupDirectory() {
+                    try {
+                        // Try to access or create a directory for backups
+                        const dirHandle = await window.showDirectoryPicker({
+                            id: 'backup-dir',
+                            startIn: 'documents',
+                            mode: 'readwrite',
+                        });
+                        
+                        return dirHandle;
+                    } catch (error) {
+                        console.error('Failed to access backup directory:', error);
+                        return null;
+                    }
+                },
+                
+                // Open folder picker
+                async openFolderPicker() {
+                    try {
+                        this.isLoading = true;
+                        this.statusMessage = 'Selecting folder...';
+                        
+                        // Request user to select a folder
+                        const dirHandle = await window.showDirectoryPicker();
+                        this.currentDirectory = dirHandle;
+                        
+                        // Load image and text pairs
+                        await this.loadImageTextPairs(dirHandle);
+                        
+                        // Set status message before backup
+                        this.statusMessage = `Loaded ${this.pairs.length} media-text pairs`;
+                        this.isLoading = false; // End loading state before backup
+                        
+                        // Create backup after loading (don't block UI)
+                        if (this.pairs.length > 0) {
+                            setTimeout(() => {
+                                this.createBackup();
+                            }, 100);
+                        }
+                    } catch (error) {
+                        console.error('Folder selection error:', error);
+                        this.addNotification({
+                            title: 'Error',
+                            message: error.message || 'Failed to load folder',
+                            type: 'error'
+                        });
+                        this.statusMessage = '';
+                        this.isLoading = false;
+                    }
+                },
+                
+                // Load image-text pairs from the selected directory
+                async loadImageTextPairs(dirHandle) {
+                    this.pairs = [];
+                    this.currentIndex = 0;
+                    this.currentPair = null;
+                    this.currentText = '';
+                    this.isEdited = false;
+                    this.statusMessage = 'Scanning folder...';
+                    
+                    try {
+                        // Map to store pairs by base name
+                        const pairsMap = new Map();
+                        
+                        // Process all files in the directory
+                        for await (const entry of dirHandle.values()) {
+                            if (entry.kind === 'file') {
+                                const name = entry.name;
+                                const baseName = name.substring(0, name.lastIndexOf('.'));
+                                const extension = name.substring(name.lastIndexOf('.')).toLowerCase();
+                                
+                                // Process media files (images, videos) and TXT files
+                                const mediaExtensions = ['.png', '.jpg', '.jpeg', '.mp4', '.webm', '.mov'];
+                                if (mediaExtensions.includes(extension) || extension === '.txt') {
+                                    // Get or create pair object in the map
+                                    if (!pairsMap.has(baseName)) {
+                                        pairsMap.set(baseName, {
+                                            baseName,
+                                            mediaFile: null,
+                                            mediaHandle: null,
+                                            mediaType: null,
+                                            mediaName: '',
+                                            textFile: null,
+                                            textHandle: null,
+                                            textName: ''
+                                        });
+                                    }
+                                    
+                                    const pair = pairsMap.get(baseName);
+                                    
+                                    // Assign file to appropriate property
+                                    if (mediaExtensions.includes(extension)) {
+                                        pair.mediaFile = entry;
+                                        pair.mediaName = name;
+                                        pair.mediaHandle = await entry.getFile();
+                                        
+                                        // Determine if it's an image or video
+                                        if (['.png', '.jpg', '.jpeg'].includes(extension)) {
+                                            pair.mediaType = 'image';
+                                        } else {
+                                            pair.mediaType = 'video';
+                                        }
+                                    } else if (extension === '.txt') {
+                                        pair.textFile = entry;
+                                        pair.textName = name;
+                                        pair.textHandle = await entry.getFile();
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Filter for valid pairs (has both media and text)
+                        for (const pair of pairsMap.values()) {
+                            if (pair.mediaFile && pair.textFile) {
+                                this.pairs.push(pair);
+                            }
+                        }
+                        
+                        // Sort pairs by base name
+                        this.pairs.sort((a, b) => a.baseName.localeCompare(b.baseName));
+                        
+                        // Load the first pair if available
+                        if (this.pairs.length > 0) {
+                            await this.loadPair(0);
+                            this.addNotification({
+                                title: 'Success',
+                                message: `Loaded ${this.pairs.length} media-text pairs`,
+                                type: 'success'
+                            });
+                        } else {
+                            this.addNotification({
+                                title: 'No Pairs Found',
+                                message: 'No matching media and text files found in the selected folder.',
+                                type: 'warning'
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Error loading pairs:', error);
+                        this.addNotification({
+                            title: 'Error',
+                            message: 'Failed to load media-text pairs: ' + error.message,
+                            type: 'error'
+                        });
+                    }
+                },
+                
+                // Load a specific pair by index
+                async loadPair(index) {
+                    if (index < 0 || index >= this.pairs.length) return;
+                    
+                    // Check for unsaved changes
+                    if (this.isEdited) {
+                        const confirmed = await this.confirmAction(
+                            'Unsaved Changes',
+                            'You have unsaved changes. Do you want to save them before continuing?'
+                        );
+                        
+                        if (confirmed) {
+                            await this.saveCurrentText();
+                        }
+                    }
+                    
+                    this.isLoading = true;
+                    this.statusMessage = 'Loading pair...';
+                    
+                    try {
+                        const pair = this.pairs[index];
+                        
+                        // Load media (image or video)
+                        const mediaFile = await pair.mediaHandle;
+                        pair.mediaBlob = mediaFile;
+                        pair.mediaURL = URL.createObjectURL(mediaFile);
+                        
+                        // Reset video state if switching pairs
+                        this.isVideoPlaying = false;
+                        this.videoCurrentTime = 0;
+                        
+                        // Get media dimensions when loaded
+                        if (pair.mediaType === 'image') {
+                            const img = new Image();
+                            img.onload = () => {
+                                this.mediaInfo.width = img.naturalWidth;
+                                this.mediaInfo.height = img.naturalHeight;
+                                this.mediaInfo.duration = null;
+                            };
+                            img.src = pair.mediaURL;
+                        } else if (pair.mediaType === 'video') {
+                            // We'll set this up in the next tick after the video element is rendered
+                            this.$nextTick(() => {
+                                if (this.$refs.videoPlayer) {
+                                    const video = this.$refs.videoPlayer;
+                                    
+                                    // Set up video metadata loading
+                                    video.onloadedmetadata = () => {
+                                        this.mediaInfo.width = video.videoWidth;
+                                        this.mediaInfo.height = video.videoHeight;
+                                        this.mediaInfo.duration = video.duration;
+                                        
+                                        // Apply looping setting
+                                        video.loop = this.isLooping;
+                                    };
+                                    
+                                    // Set up time update events
+                                    video.ontimeupdate = () => {
+                                        this.videoCurrentTime = video.currentTime;
+                                    };
+                                    
+                                    // Set up play/pause state tracking
+                                    video.onplay = () => {
+                                        this.isVideoPlaying = true;
+                                    };
+                                    
+                                    video.onpause = () => {
+                                        this.isVideoPlaying = false;
+                                    };
+                                    
+                                    video.onended = () => {
+                                        if (!this.isLooping) {
+                                            this.isVideoPlaying = false;
+                                        }
+                                    };
+                                }
+                            });
+                        }
+                        
+                        // Load text
+                        const textFile = await pair.textHandle;
+                        this.currentText = await textFile.text();
+                        
+                        // Update state
+                        this.currentPair = pair;
+                        this.currentIndex = index;
+                        this.isEdited = false;
+                        
+                        this.statusMessage = `Loaded ${pair.baseName} (${index + 1} of ${this.pairs.length})`;
+                    } catch (error) {
+                        console.error('Error loading pair:', error);
+                        this.addNotification({
+                            title: 'Error',
+                            message: 'Failed to load pair: ' + error.message,
+                            type: 'error'
+                        });
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+                
+                // Navigate to previous/next pair
+                async navigatePair(direction) {
+                    if (!this.hasPairs || this.isLoading) return;
+                    
+                    const newIndex = this.currentIndex + direction;
+                    if (newIndex >= 0 && newIndex < this.pairs.length) {
+                        await this.loadPair(newIndex);
+                    }
+                },
+                
+                // Save the current text
+                async saveCurrentText() {
+                    if (!this.currentPair || !this.isEdited || this.isLoading) return;
+                    
+                    this.isLoading = true;
+                    this.statusMessage = 'Saving text...';
+                    
+                    try {
+                        const writable = await this.currentPair.textFile.createWritable();
+                        await writable.write(this.currentText);
+                        await writable.close();
+                        
+                        // Update the text handle
+                        this.currentPair.textHandle = await this.currentPair.textFile.getFile();
+                        
+                        this.isEdited = false;
+                        this.addNotification({
+                            title: 'Saved',
+                            message: `Successfully saved changes to ${this.currentPair.textName}`,
+                            type: 'success'
+                        });
+                        
+                        this.statusMessage = 'Changes saved';
+                    } catch (error) {
+                        console.error('Error saving text:', error);
+                        this.addNotification({
+                            title: 'Save Error',
+                            message: 'Failed to save text: ' + error.message,
+                            type: 'error'
+                        });
+                        this.statusMessage = 'Save failed';
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+                
+                // Create backup of all text files
+                async createBackup() {
+                    if (!this.pairs.length || !this.currentDirectory) return;
+                    
+                    this.statusMessage = 'Creating backup...';
+                    
+                    try {
+                        // Create a new ZIP file
+                        const zip = new JSZip();
+                        
+                        // Generate timestamp for backup name
+                        const timestamp = new Date().toISOString()
+                            .replace(/[:.]/g, '-')
+                            .replace('T', '_')
+                            .substring(0, 19);
+                        
+                        // Get directory name for the ZIP filename
+                        const dirName = this.currentDirectory.name;
+                        const backupName = `${dirName}_${timestamp}.zip`;
+                        
+                        // Add all text files to the ZIP
+                        for (const pair of this.pairs) {
+                            if (pair.textFile) {
+                                const textFile = await pair.textHandle;
+                                const textContent = await textFile.text();
+                                zip.file(pair.textName, textContent);
+                            }
+                        }
+                        
+                        // Generate the ZIP file
+                        const content = await zip.generateAsync({ type: "blob" });
+                        
+                        // Ask user where to save the backup (only first time)
+                        try {
+                            // First try to get a directory from user
+                            const backupDir = await this.requestBackupDirectory();
+                            
+                            if (backupDir) {
+                                // Save to the selected directory
+                                const fileHandle = await backupDir.getFileHandle(backupName, { create: true });
+                                const writable = await fileHandle.createWritable();
+                                await writable.write(content);
+                                await writable.close();
+                                
+                                this.addNotification({
+                                    title: 'Backup Created',
+                                    message: `Saved backup to selected directory: ${backupName}`,
+                                    type: 'success'
+                                });
+                            } else {
+                                // Download the file if no directory selected
+                                saveAs(content, backupName);
+                                this.addNotification({
+                                    title: 'Backup Created',
+                                    message: `${backupName} downloaded to your downloads folder`,
+                                    type: 'success'
+                                });
+                            }
+                        } catch (saveError) {
+                            // If saving to directory fails, download the file
+                            console.error('Error saving backup:', saveError);
+                            saveAs(content, backupName);
+                            this.addNotification({
+                                title: 'Backup Created',
+                                message: `${backupName} downloaded to your downloads folder`,
+                                type: 'success'
+                            });
+                        }
+                        
+                        this.statusMessage = 'Backup completed';
+                    } catch (error) {
+                        console.error('Backup error:', error);
+                        this.addNotification({
+                            title: 'Backup Error',
+                            message: 'Failed to create backup: ' + error.message,
+                            type: 'error'
+                        });
+                        this.statusMessage = 'Backup failed';
+                    }
+                },
+                
+                // Add a notification
+                addNotification(notification) {
+                    this.notifications.push({
+                        id: Date.now(),
+                        title: notification.title || 'Notification',
+                        message: notification.message || '',
+                        type: notification.type || 'info',
+                        duration: notification.duration || 5000
+                    });
+                },
+                
+                // Remove a notification by index
+                removeNotification(index) {
+                    this.notifications.splice(index, 1);
+                },
+                
+                // Confirm action dialog (simple implementation)
+                async confirmAction(title, message) {
+                    return confirm(`${title}\n\n${message}`);
+                },
+                
+                // Video control functions
+                togglePlayPause() {
+                    if (!this.$refs.videoPlayer) return;
+                    
+                    const video = this.$refs.videoPlayer;
+                    if (video.paused) {
+                        video.play();
+                        this.isVideoPlaying = true;
+                    } else {
+                        video.pause();
+                        this.isVideoPlaying = false;
+                    }
+                },
+                
+                restartVideo() {
+                    if (!this.$refs.videoPlayer) return;
+                    
+                    const video = this.$refs.videoPlayer;
+                    video.currentTime = 0;
+                    if (!video.paused) {
+                        // If it was playing, keep playing from start
+                        video.play();
+                    }
+                },
+                
+                toggleLooping() {
+                    if (!this.$refs.videoPlayer) return;
+                    
+                    this.isLooping = !this.isLooping;
+                    this.$refs.videoPlayer.loop = this.isLooping;
+                },
+                
+                // Time formatting utilities
+                formatTime(seconds) {
+                    if (!seconds && seconds !== 0) return '--:--';
+                    
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                },
+                
+                formatDuration(seconds) {
+                    if (!seconds) return '';
+                    
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${mins}:${secs.toString().padStart(2, '0')}`;
+                },
+                
+                // Search & Replace functions
+                openSearchReplace() {
+                    if (!this.hasPairs) return;
+                    
+                    this.searchReplaceOpen = true;
+                    this.searchQuery = '';
+                    this.replaceText = '';
+                    this.searchResults = [];
+                    this.currentSearchIndex = -1;
+                },
+                
+                performSearch() {
+                    if (!this.searchQuery.trim() || !this.hasPairs) return;
+                    
+                    this.statusMessage = 'Searching...';
+                    this.searchResults = [];
+                    
+                    // Determine if we're searching for a quoted phrase
+                    let searchTerm = this.searchQuery.trim();
+                    let isPhrase = false;
+                    
+                    if (searchTerm.startsWith('"') && searchTerm.endsWith('"') && searchTerm.length > 2) {
+                        searchTerm = searchTerm.substring(1, searchTerm.length - 1);
+                        isPhrase = true;
+                    }
+                    
+                    // Create search regex
+                    let flags = this.caseSensitive ? 'g' : 'gi';
+                    let pattern = searchTerm;
+                    
+                    if (this.matchWholeWord) {
+                        pattern = `\\b${this.escapeRegExp(pattern)}\\b`;
+                    } else if (!isPhrase) {
+                        // If not a phrase and not whole word, escape it for regex
+                        pattern = this.escapeRegExp(pattern);
+                    }
+                    
+                    try {
+                        const regex = new RegExp(pattern, flags);
+                        
+                        // Search through all text files
+                        this.pairs.forEach((pair, pairIndex) => {
+                            // Skip current pair if it's not loaded yet
+                            if (!pair.textHandle) return;
+                            
+                            const text = pair.textName === this.currentPair?.textName 
+                                ? this.currentText 
+                                : null; // We'll load it asynchronously
+                            
+                            // If text is already loaded (current pair), search it immediately
+                            if (text) {
+                                this.searchTextContent(text, regex, pair, pairIndex);
+                            }
+                        });
+                        
+                        // Now load and search the rest of the files asynchronously
+                        this.loadAndSearchRemainingFiles(regex);
+                        
+                    } catch (error) {
+                        console.error('Search error:', error);
+                        this.addNotification({
+                            title: 'Search Error',
+                            message: 'Invalid search pattern: ' + error.message,
+                            type: 'error'
+                        });
+                        this.statusMessage = '';
+                    }
+                },
+                
+                // Helper function to escape special regex characters
+                escapeRegExp(string) {
+                    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                },
+                
+                // Search text content and add results
+                searchTextContent(text, regex, pair, pairIndex) {
+                    // Reset regex lastIndex
+                    regex.lastIndex = 0;
+                    
+                    let match;
+                    while ((match = regex.exec(text)) !== null) {
+                        // Get context around the match
+                        const start = Math.max(0, match.index - 30);
+                        const end = Math.min(text.length, match.index + match[0].length + 30);
+                        
+                        let context = text.substring(start, end);
+                        
+                        // Add ellipsis if we're not showing from the start/end
+                        if (start > 0) context = '...' + context;
+                        if (end < text.length) context = context + '...';
+                        
+                        // Add to results
+                        this.searchResults.push({
+                            pairIndex,
+                            fileName: pair.textName,
+                            matchIndex: match.index,
+                            matchLength: match[0].length,
+                            matchText: match[0],
+                            context,
+                            fullText: text
+                        });
+                    }
+                },
+                
+                // Load and search the remaining files
+                async loadAndSearchRemainingFiles(regex) {
+                    const currentPairName = this.currentPair?.textName;
+                    let processed = 0;
+                    
+                    for (const pair of this.pairs) {
+                        // Skip the current pair which we've already searched
+                        if (pair.textName === currentPairName) {
+                            processed++;
+                            continue;
+                        }
+                        
+                        try {
+                            // Load the text content
+                            const textFile = await pair.textHandle;
+                            const text = await textFile.text();
+                            
+                            // Search this text
+                            this.searchTextContent(text, regex, pair, this.pairs.indexOf(pair));
+                            
+                            processed++;
+                            this.statusMessage = `Searching... (${processed}/${this.pairs.length})`;
+                            
+                        } catch (error) {
+                            console.error(`Error searching ${pair.textName}:`, error);
+                        }
+                    }
+                    
+                    // Update status when search is complete
+                    this.statusMessage = this.searchResults.length > 0 
+                        ? `Found ${this.searchResults.length} matches in ${this.getUniqueFileCount()} files` 
+                        : 'No matches found';
+                        
+                    // Sort results by file name and then match index
+                    this.searchResults.sort((a, b) => {
+                        if (a.fileName === b.fileName) {
+                            return a.matchIndex - b.matchIndex;
+                        }
+                        return a.fileName.localeCompare(b.fileName);
+                    });
+                },
+                
+                // Highlight search results in context
+                highlightSearchResult(context) {
+                    if (!context || !this.searchQuery.trim()) return context;
+                    
+                    // This is a simplified version that works for most cases
+                    // A more robust solution would use the exact match positions
+                    let searchTerm = this.searchQuery.trim();
+                    
+                    // Remove quotes if it's a phrase search
+                    if (searchTerm.startsWith('"') && searchTerm.endsWith('"') && searchTerm.length > 2) {
+                        searchTerm = searchTerm.substring(1, searchTerm.length - 1);
+                    }
+                    
+                    // Escape HTML special characters to prevent XSS
+                    const escapedContext = this.escapeHtml(context);
+                    
+                    // Create regex for highlighting
+                    let flags = this.caseSensitive ? 'g' : 'gi';
+                    let pattern = this.escapeRegExp(searchTerm);
+                    
+                    if (this.matchWholeWord) {
+                        pattern = `\\b${pattern}\\b`;
+                    }
+                    
+                    try {
+                        const regex = new RegExp(pattern, flags);
+                        return escapedContext.replace(regex, match => 
+                            `<span class="bg-yellow-500 text-black font-medium px-1 rounded">${match}</span>`
+                        );
+                    } catch (error) {
+                        console.error('Highlight error:', error);
+                        return escapedContext;
+                    }
+                },
+                
+                // Escape HTML to prevent XSS
+                escapeHtml(text) {
+                    const div = document.createElement('div');
+                    div.textContent = text;
+                    return div.innerHTML;
+                },
+                
+                // Get count of unique files in search results
+                getUniqueFileCount() {
+                    const uniqueFiles = new Set();
+                    this.searchResults.forEach(result => uniqueFiles.add(result.fileName));
+                    return uniqueFiles.size;
+                },
+                
+                // Replace a single occurrence
+                async replaceSingle(index) {
+                    if (index < 0 || index >= this.searchResults.length) return;
+                    
+                    const result = this.searchResults[index];
+                    const pair = this.pairs[result.pairIndex];
+                    
+                    // If it's the current pair, update in memory
+                    if (pair === this.currentPair) {
+                        // Replace in the current text
+                        const before = this.currentText.substring(0, result.matchIndex);
+                        const after = this.currentText.substring(result.matchIndex + result.matchLength);
+                        this.currentText = before + this.replaceText + after;
+                        this.isEdited = true;
+                        
+                        // Remove this result from search results
+                        this.searchResults.splice(index, 1);
+                        
+                        // Update the search results that come after this in the same file
+                        const offset = this.replaceText.length - result.matchLength;
+                        if (offset !== 0) {
+                            this.searchResults.forEach(r => {
+                                if (r.fileName === result.fileName && r.matchIndex > result.matchIndex) {
+                                    r.matchIndex += offset;
+                                }
+                            });
+                        }
+                        
+                        this.addNotification({
+                            title: 'Replaced',
+                            message: `Replaced occurrence in ${pair.textName}`,
+                            type: 'success'
+                        });
+                        
+                        return;
+                    }
+                    
+                    // Otherwise, we need to load, modify, and save the file
+                    try {
+                        this.statusMessage = `Replacing in ${pair.textName}...`;
+                        
+                        // Load the text file
+                        const textFile = await pair.textHandle;
+                        const text = await textFile.text();
+                        
+                        // Replace the occurrence
+                        const before = text.substring(0, result.matchIndex);
+                        const after = text.substring(result.matchIndex + result.matchLength);
+                        const newText = before + this.replaceText + after;
+                        
+                        // Save the file
+                        const writable = await pair.textFile.createWritable();
+                        await writable.write(newText);
+                        await writable.close();
+                        
+                        // Update the text handle
+                        pair.textHandle = await pair.textFile.getFile();
+                        
+                        // Remove this result from search results
+                        this.searchResults.splice(index, 1);
+                        
+                        // Update the search results that come after this in the same file
+                        const offset = this.replaceText.length - result.matchLength;
+                        if (offset !== 0) {
+                            this.searchResults.forEach(r => {
+                                if (r.fileName === result.fileName && r.matchIndex > result.matchIndex) {
+                                    r.matchIndex += offset;
+                                }
+                            });
+                        }
+                        
+                        this.addNotification({
+                            title: 'Replaced',
+                            message: `Replaced occurrence in ${pair.textName}`,
+                            type: 'success'
+                        });
+                        
+                        this.statusMessage = '';
+                    } catch (error) {
+                        console.error(`Error replacing in ${pair.textName}:`, error);
+                        this.addNotification({
+                            title: 'Replace Error',
+                            message: `Failed to replace in ${pair.textName}: ${error.message}`,
+                            type: 'error'
+                        });
+                        this.statusMessage = '';
+                    }
+                },
+                
+                // Replace all occurrences
+                async replaceAll() {
+                    if (this.searchResults.length === 0) return;
+                    
+                    const confirmed = await this.confirmAction(
+                        'Replace All',
+                        `Replace all ${this.searchResults.length} occurrences of "${this.searchQuery}" with "${this.replaceText}"?`
+                    );
+                    
+                    if (!confirmed) return;
+                    
+                    this.statusMessage = 'Replacing all occurrences...';
+                    
+                    // Group results by file for more efficient processing
+                    const fileGroups = {};
+                    this.searchResults.forEach(result => {
+                        if (!fileGroups[result.fileName]) {
+                            fileGroups[result.fileName] = [];
+                        }
+                        fileGroups[result.fileName].push(result);
+                    });
+                    
+                    // Process each file
+                    const fileNames = Object.keys(fileGroups);
+                    let processed = 0;
+                    let totalReplaced = 0;
+                    
+                    for (const fileName of fileNames) {
+                        const results = fileGroups[fileName];
+                        const pairIndex = results[0].pairIndex;
+                        const pair = this.pairs[pairIndex];
+                        
+                        try {
+                            // If it's the current pair, update in memory
+                            if (pair === this.currentPair) {
+                                let newText = this.currentText;
+                                
+                                // Sort in reverse order to avoid position shifts
+                                results.sort((a, b) => b.matchIndex - a.matchIndex);
+                                
+                                // Replace each occurrence
+                                for (const result of results) {
+                                    const before = newText.substring(0, result.matchIndex);
+                                    const after = newText.substring(result.matchIndex + result.matchLength);
+                                    newText = before + this.replaceText + after;
+                                }
+                                
+                                this.currentText = newText;
+                                this.isEdited = true;
+                                totalReplaced += results.length;
+                            } else {
+                                // Load the text file
+                                const textFile = await pair.textHandle;
+                                const text = await textFile.text();
+                                
+                                // Sort in reverse order to avoid position shifts
+                                results.sort((a, b) => b.matchIndex - a.matchIndex);
+                                
+                                let newText = text;
+                                
+                                // Replace each occurrence
+                                for (const result of results) {
+                                    const before = newText.substring(0, result.matchIndex);
+                                    const after = newText.substring(result.matchIndex + result.matchLength);
+                                    newText = before + this.replaceText + after;
+                                }
+                                
+                                // Save the file
+                                const writable = await pair.textFile.createWritable();
+                                await writable.write(newText);
+                                await writable.close();
+                                
+                                // Update the text handle
+                                pair.textHandle = await pair.textFile.getFile();
+                                totalReplaced += results.length;
+                            }
+                            
+                            processed++;
+                            this.statusMessage = `Replacing... (${processed}/${fileNames.length} files)`;
+                            
+                        } catch (error) {
+                            console.error(`Error replacing in ${fileName}:`, error);
+                            this.addNotification({
+                                title: 'Replace Error',
+                                message: `Failed to replace in ${fileName}: ${error.message}`,
+                                type: 'error'
+                            });
+                        }
+                    }
+                    
+                    // Clear search results
+                    this.searchResults = [];
+                    
+                    this.addNotification({
+                        title: 'Replace Complete',
+                        message: `Replaced ${totalReplaced} occurrences in ${processed} files`,
+                        type: 'success'
+                    });
+                    
+                    this.statusMessage = `Replaced ${totalReplaced} occurrences in ${processed} files`;
+                }
+            }));
+        });
+    </script>
+
+
+</body></html>
